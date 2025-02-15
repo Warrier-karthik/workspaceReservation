@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <form action="/createUser" method="post">
+        <input type="text" placeholder="FirstName" name="fname" required="true">
+        <input type="text" placeholder="LastName" name="lname" required="true">
+        <input type="email" placeholder="Email" name="email" required="true">
+        <input type="password" placeholder="password" name="password" required="true">
+        <input type="password" placeholder="confirm password" name="Cpassword" required="true">
+        <select name="position">
+            <option value="employee">Employee</option>
+            <option value="teamManager">Team Manager</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    <h3 style="color: red;"><%= msg %></h3>
+</body>
+</html>

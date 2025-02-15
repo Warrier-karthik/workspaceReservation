@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <nav>
+        
+        <% if (isAuthenticated) { %>
+            <li><%= name %> : <%= data[0].Position %></li>
+            <% if (data[0].Position == "employee") { %>
+                <li><a href="/book">Reserve The Room</a></li>    
+            <% } %>
+            <li><a href="/logout">Logout</a></li>
+        <% } else {%>
+            <li><a href="/createUser">Register</a></li>
+            <li><a href="/login">Login</a></li>
+        <% } %>
+        <li><a href="/requests">View All Requests</a></li>
+    </nav>
+</body>
+</html>
