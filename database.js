@@ -18,10 +18,10 @@ async function getuser(email) {
         [email]);
         return row;
 }
-async function createUser(FirstName, LastName, Email, Position, password){
-    const result = await pool.query(`INSERT INTO users (FirstName, LastName, Email, Position, password) 
-        VALUES (?, ?, ?, ?, ?)`
-        , [FirstName, LastName, Email, Position, password]);
+async function createUser(FirstName, Email, Position, password){
+    const result = await pool.query(`INSERT INTO users (FirstName, Email, Position, password) 
+        VALUES (?, ?, ?, ?)`
+        , [FirstName, Email, Position, password]);
     
 }   
 
@@ -36,7 +36,7 @@ async function getrequests() {
 }
 
 async function setStatus(Request, Id, position) {
-    if (position === 'teamManager'){
+    if (position === 'Manager'){
         const result = await pool.query(`UPDATE requests SET 
             request = ? WHERE id = ?`
             , [Request, Id])
@@ -47,7 +47,10 @@ async function setStatus(Request, Id, position) {
             , [Request, Id])
     }
 }
-
+async function getrequest(Id) {
+    const [result] = await pool.query(`SELECT * FROM requests WHERE id = ?`, [Id])
+    return result
+}
 module.exports = {
     getusers : getusers,
     createUser: createUser,
@@ -55,4 +58,5 @@ module.exports = {
     createRequest: createRequest,
     getrequests: getrequests,
     setStatus: setStatus,
+    getrequest: getrequest
 }
