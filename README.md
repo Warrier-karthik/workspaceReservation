@@ -5,7 +5,12 @@ HOST=
 USER=
 PASSWORD=
 DATABASE=
-``` 
+```
+# Add the following to the headers of the api platoform you are using
+| Header Name  | Value                                 |
+|---------|------------------------------------------|
+| **Content-Type**  | `application/json`           | 
+| **Accept**  | `application/json`           | 
 # Install The following packages
 ``` cmd
 npm i bcrypt
