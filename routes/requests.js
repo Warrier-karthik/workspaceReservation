@@ -1,13 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const db = require('./database')
+const db = require('../database')
 
 
 //To get all the users
 router.get('/', async (req, res) => {
     try{
         const requests = await db.getrequests()
-        const user = await db.getuser(req.session.email)
         res.json(requests)
     } catch(err) {
         res.status(500).json({message: "database error", details: err.message})
@@ -36,10 +35,14 @@ router.post('/createRequest', async (req, res) => {
 router.post('/statusUpdate', async(req, res) => {
     const request = await db.getrequest(req.body.id)
     try {
-        if (req.session.position == "Manager"){
-            const result = await db.setStatus(req.body.status, req.body.id, req.session.position)
-            res.json({message: "status updated successfully"})
+        if (request.length == 0){
+            res.status(400).json({message: "The request not found."})
         }
+        else if (req.session.position == "Manager"){ 
+           
+            const result = await db.setStatus(req.body.status, req.body.id, req.session.position)         
+            res.json({message: "status updated successfully"})
+            }  
         else if (req.session.position == "admin") {
             if (request[0].request == "approved"){
                 const result = await db.setStatus(req.body.status, req.body.id, req.session.position)
@@ -57,3 +60,4 @@ router.post('/statusUpdate', async(req, res) => {
     }
 })
 
+module.exports = router

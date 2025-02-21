@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const db = require('./database')
+const db = require('../database')
 const bcrypt = require('bcrypt')
+
+// To get all the users
 router.get('/', async (req, res) => {
     try {
     const users = await db.getusers();
@@ -11,6 +13,7 @@ router.get('/', async (req, res) => {
     }
 })
 
+// To create a new user
 router.post('/register', async (req, res) => {
     const user = await db.getuser(req.body.email);
     if (user.length > 0) {
@@ -29,7 +32,9 @@ router.post('/register', async (req, res) => {
     }
 })
 
-app.post('/login', async (req, res) => {
+
+//To login
+router.post('/login', async (req, res) => {
     const user = await db.getuser(req.body.email)
     try{
         if (await bcrypt.compare(req.body.password, user[0].password))
@@ -52,7 +57,10 @@ app.post('/login', async (req, res) => {
         console.error("Database Error:", error);
     }
 })
-app.get('/logout', (req, res) => {
+
+
+//To Logout
+router.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             console.log("Error destroying session:", err);
@@ -63,3 +71,5 @@ app.get('/logout', (req, res) => {
     })
 
 })
+
+module.exports = router

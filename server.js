@@ -1,5 +1,5 @@
 const express = require('express');
-const usersRouter = require('./router/users')
+const usersRouter = require('./routes/users')
 const requestRouter = require('./routes/requests')
 const app = express()
 const session = require('express-session')
